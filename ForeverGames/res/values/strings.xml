@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ForeverGames</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Авторизация</string>
+    <string name="registration">Регистрация</string>
+    <string name="mail">E-mail</string>
+    <string name="confirm">Повтор пароля</string>
+    <string name="male">Муж.</string>
+    <string name="female">Жен.</string>
+    <string name="hide">Скрыть</string>
+    <string name="phone">Номер телефона</string>
+    <string name="fullname">Полное Имя</string>
+    <string name="autologin">Запомнить пароль</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_main">Информация</string>
+    <string name="title_money">Финансы</string>
+    <string name="title_shop">Магазин</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Обновить</string>
+
+</resources>
