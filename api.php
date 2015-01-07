@@ -116,6 +116,7 @@
     		 $answer['content'] = "Вы успешно авторизованны";
     		 $answer['type']    = "popup";
 		 $answer['isUser']  = "true";
+		 $answer['user'] = json_encode($myrow);
 	
 	
 	}
