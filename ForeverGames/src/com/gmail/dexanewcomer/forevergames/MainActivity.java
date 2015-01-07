@@ -147,8 +147,8 @@ public class MainActivity extends Activity implements
 	@Override
 	public void onBackPressed() {
 	    new AlertDialog.Builder(this)
-	        .setTitle("Really Exit?")
-	        .setMessage("Are you sure you want to exit?")
+	        .setTitle("Реально выйти?")
+	        .setMessage("И что, это Вы внатуре надумали выйти???")
 	        .setNegativeButton(android.R.string.no, null)
 	        .setPositiveButton(android.R.string.yes, new OnClickListener() {
 
