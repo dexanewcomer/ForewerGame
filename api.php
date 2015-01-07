@@ -1,7 +1,8 @@
 <?php
-  
-    $db = mysql_connect ("localhost","root","sql_password");
-    mysql_select_db ("dexa_db",$db);
+    header('Content-type: text/html; charset=utf-8');
+    $db = mysql_connect ("localhost","root","sqlPWD(84)") or die(mysql_error());
+    mysql_select_db ("dexa_db",$db)or die(mysql_error());
+	mysql_set_charset( 'utf8' );
     function hashgen() {
     $alphabet = array("A","B","C","D","E","F","0","1","2","3","4","5","6","7","8","9");
     for ($i = 0; $i < 32; $i++) {

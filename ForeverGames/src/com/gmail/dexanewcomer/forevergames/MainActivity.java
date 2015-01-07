@@ -1,5 +1,8 @@
 package com.gmail.dexanewcomer.forevergames;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -22,6 +25,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
+	private String userinfo;
+	private JSONObject reader;
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -39,6 +44,16 @@ public class MainActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Bundle bundle = getIntent().getExtras();
+		
+		userinfo = bundle.getString("user");
+		System.out.println(userinfo);
+		try {
+			reader = new JSONObject(userinfo);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
@@ -61,6 +76,13 @@ public class MainActivity extends Activity implements
 
 	public void onSectionAttached(int number) {
 		switch (number) {
+		default:
+			try {
+				mTitle = reader.getString("fullname");
+			} catch (JSONException e) {
+				mTitle = "Forever Game";
+			}
+			break;
 		case 1:
 			mTitle = getString(R.string.title_main);
 			break;

@@ -43,6 +43,7 @@ public class LoginActivity extends Activity {
 	Activity mActivity = this;
 	String login, pass;
 	boolean autologin;
+	private final String server = "http://192.168.0.102/api.php";
 
 	private SharedPreferences mSettings;
 	private static final String 		APP_PREFERENCES_LOGIN = 		"login";
@@ -62,7 +63,7 @@ public class LoginActivity extends Activity {
 			nameValuePairs.add(new BasicNameValuePair("login", login));
 			nameValuePairs.add(new BasicNameValuePair("pass", pass));
 			aHttpClient client = new aHttpClient(mActivity);
-			client.post("http://192.168.0.100/api.php", nameValuePairs);
+			client.post(server, nameValuePairs);
 			
 		}
 		regorlogin = (TextView) this.findViewById(R.id.regorlogin);
@@ -115,7 +116,7 @@ public class LoginActivity extends Activity {
 				}
 			
 				aHttpClient client = new aHttpClient(mActivity);
-				client.post("http://192.168.0.100/api.php", nameValuePairs);
+				client.post(server, nameValuePairs);
 				
 				
 				
@@ -165,8 +166,10 @@ public class LoginActivity extends Activity {
 			else{
 				if(reader.getBoolean("isUser")){
 
-
+    Bundle bundle = new Bundle();
+    bundle.putString("user", reader.getString("user"));
 	Intent enterIntent = new Intent(mActivity, MainActivity.class);
+	enterIntent.putExtras(bundle);
 	enterIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	mActivity.startActivity(enterIntent);
 	mActivity.finish();
