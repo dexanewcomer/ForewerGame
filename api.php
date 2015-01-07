@@ -17,7 +17,7 @@
     	$pass 	 = trim($_POST['pass']);
     }
     switch($_POST['act']){
-    default:// В случае поступления немзвесто чего.
+    default:// В случае поступления неизвесто чего.
     $answer['error']	= "true";
     $answer['content']  = "Не известное действие, возможно версия приложения устарела";
     $answer['type']	="popup";
