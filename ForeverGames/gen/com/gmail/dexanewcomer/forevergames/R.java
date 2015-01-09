@@ -8,6 +8,10 @@
 package com.gmail.dexanewcomer.forevergames;
 
 public final class R {
+    public static final class animator {
+        public static final int ltr=0x7f040000;
+        public static final int rtl=0x7f040001;
+    }
     public static final class attr {
     }
     public static final class dimen {
@@ -18,10 +22,10 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
-        public static final int form_top=0x7f040002;
-        public static final int navigation_drawer_width=0x7f040003;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
+        public static final int form_top=0x7f050002;
+        public static final int navigation_drawer_width=0x7f050003;
     }
     public static final class drawable {
         public static final int drawer_shadow=0x7f020000;
@@ -29,25 +33,25 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f080012;
-        public static final int autologin=0x7f08000e;
-        public static final int container=0x7f080001;
-        public static final int cpass=0x7f080007;
-        public static final int drawer_layout=0x7f080000;
-        public static final int female=0x7f08000d;
-        public static final int fullname=0x7f08000a;
-        public static final int login=0x7f080004;
-        public static final int mail=0x7f080008;
-        public static final int male=0x7f08000c;
-        public static final int navigation_drawer=0x7f080002;
-        public static final int pass=0x7f080005;
-        public static final int phone=0x7f080009;
-        public static final int reggroup=0x7f080006;
-        public static final int regorlogin=0x7f08000f;
-        public static final int section_label=0x7f080003;
-        public static final int sex=0x7f08000b;
-        public static final int submit=0x7f080010;
-        public static final int user_name=0x7f080011;
+        public static final int action_settings=0x7f090012;
+        public static final int autologin=0x7f09000e;
+        public static final int container=0x7f090001;
+        public static final int cpass=0x7f090007;
+        public static final int drawer_layout=0x7f090000;
+        public static final int female=0x7f09000d;
+        public static final int fullname=0x7f09000a;
+        public static final int login=0x7f090004;
+        public static final int mail=0x7f090008;
+        public static final int male=0x7f09000c;
+        public static final int navigation_drawer=0x7f090002;
+        public static final int pass=0x7f090005;
+        public static final int phone=0x7f090009;
+        public static final int reggroup=0x7f090006;
+        public static final int regorlogin=0x7f09000f;
+        public static final int section_label=0x7f090003;
+        public static final int sex=0x7f09000b;
+        public static final int submit=0x7f090010;
+        public static final int user_name=0x7f090011;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -59,32 +63,32 @@ public final class R {
         public static final int main=0x7f030006;
     }
     public static final class menu {
-        public static final int global=0x7f070000;
-        public static final int main=0x7f070001;
+        public static final int global=0x7f080000;
+        public static final int main=0x7f080001;
     }
     public static final class string {
-        public static final int action_example=0x7f050015;
-        public static final int action_settings=0x7f050002;
-        public static final int app_name=0x7f050000;
-        public static final int autologin=0x7f05000e;
-        public static final int confirm=0x7f050008;
-        public static final int enter=0x7f050005;
-        public static final int female=0x7f05000a;
-        public static final int fullname=0x7f05000d;
-        public static final int hello_world=0x7f050001;
-        public static final int hide=0x7f05000b;
-        public static final int login=0x7f050003;
-        public static final int mail=0x7f050007;
-        public static final int male=0x7f050009;
-        public static final int navigation_drawer_close=0x7f050014;
-        public static final int navigation_drawer_open=0x7f050013;
-        public static final int password=0x7f050004;
-        public static final int phone=0x7f05000c;
-        public static final int registration=0x7f050006;
-        public static final int title_activity_main=0x7f05000f;
-        public static final int title_main=0x7f050010;
-        public static final int title_money=0x7f050011;
-        public static final int title_shop=0x7f050012;
+        public static final int action_example=0x7f060015;
+        public static final int action_settings=0x7f060002;
+        public static final int app_name=0x7f060000;
+        public static final int autologin=0x7f06000e;
+        public static final int confirm=0x7f060008;
+        public static final int enter=0x7f060005;
+        public static final int female=0x7f06000a;
+        public static final int fullname=0x7f06000d;
+        public static final int hello_world=0x7f060001;
+        public static final int hide=0x7f06000b;
+        public static final int login=0x7f060003;
+        public static final int mail=0x7f060007;
+        public static final int male=0x7f060009;
+        public static final int navigation_drawer_close=0x7f060014;
+        public static final int navigation_drawer_open=0x7f060013;
+        public static final int password=0x7f060004;
+        public static final int phone=0x7f06000c;
+        public static final int registration=0x7f060006;
+        public static final int title_activity_main=0x7f06000f;
+        public static final int title_main=0x7f060010;
+        public static final int title_money=0x7f060011;
+        public static final int title_shop=0x7f060012;
     }
     public static final class style {
         /** 
@@ -108,10 +112,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070001;
     }
 }

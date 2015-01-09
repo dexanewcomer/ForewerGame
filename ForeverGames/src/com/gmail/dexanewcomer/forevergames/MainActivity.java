@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements
 	LayoutInflater inflater;
 	ViewGroup container;
 	static int curentlayout;
-	private FragmentTransaction transaction;
+
 	private Fragment fragmentMain;
 	private Fragment fragmentMoney;
 
@@ -57,10 +57,11 @@ public class MainActivity extends Activity implements
 		setContentView(R.layout.activity_main);
 		curentlayout = R.layout.fragment_main;
 		fragmentMain = new FragmentMain();
-		transaction = getFragmentManager().beginTransaction();
-		transaction.replace(R.id.container, fragmentMain);
-	        transaction.addToBackStack(null);
-		    transaction.commit();
+		if(fragmentMain == null)
+			fragmentMain = new FragmentMain();	
+	getFragmentManager()
+	.beginTransaction().replace(R.id.container, fragmentMain)
+	.commit();
 		
 		 
 		Bundle bundle = getIntent().getExtras();
@@ -106,7 +107,10 @@ public class MainActivity extends Activity implements
 			try{
 				if(fragmentMain == null)
 					fragmentMain = new FragmentMain();	
-			getFragmentManager().beginTransaction().replace(R.id.container, fragmentMain).commit();
+			getFragmentManager()
+			.beginTransaction().replace(R.id.container, fragmentMain)
+			.setCustomAnimations(R.animator.ltr,R.animator.rtl)
+			.commit();
 			}
 			catch(Exception e){
 				
@@ -116,7 +120,10 @@ public class MainActivity extends Activity implements
 			mTitle = getString(R.string.title_money);
 			fragmentMoney = new FragmentMoney();
 			try{
-			getFragmentManager().beginTransaction().replace(R.id.container, fragmentMoney).commit();
+			getFragmentManager()
+			.beginTransaction()
+			.replace(R.id.container, fragmentMoney).setCustomAnimations(R.animator.ltr,R.animator.rtl)
+			.commit();
 			}
 			catch(Exception e){
 				
