@@ -3,11 +3,16 @@ package com.gmail.dexanewcomer.forevergames;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.gmail.dexanewcomer.forevergames.fragments.FragmentMain;
+import com.gmail.dexanewcomer.forevergames.fragments.FragmentMoney;
+import com.gmail.dexanewcomer.forevergames.fragments.FragmentShop;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -27,6 +32,12 @@ public class MainActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 	private String userinfo;
 	private JSONObject reader;
+	LayoutInflater inflater;
+	ViewGroup container;
+	static int curentlayout;
+	private FragmentTransaction transaction;
+	private Fragment fragmentMain;
+	private Fragment fragmentMoney;
 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
@@ -44,10 +55,29 @@ public class MainActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		curentlayout = R.layout.fragment_main;
+		fragmentMain = new FragmentMain();
+		transaction = getFragmentManager().beginTransaction();
+		transaction.replace(R.id.container, fragmentMain);
+	        transaction.addToBackStack(null);
+		    transaction.commit();
+		
+		 
 		Bundle bundle = getIntent().getExtras();
+		inflater = this.getLayoutInflater();
+		container = (ViewGroup) this.findViewById(R.id.container);
+
+		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
+		mTitle = getTitle();
+
+		// Set up the drawer.
+		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
+		
+		//////////////////////////////////////////////////////
+		//Принимаем данные о пользователе в виде json string//
+		//////////////////////////////////////////////////////
 		
 		userinfo = bundle.getString("user");
-		System.out.println(userinfo);
 		try {
 			reader = new JSONObject(userinfo);
 		} catch (JSONException e) {
@@ -55,23 +85,11 @@ public class MainActivity extends Activity implements
 			e.printStackTrace();
 		}
 
-		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
-				.findFragmentById(R.id.navigation_drawer);
-		mTitle = getTitle();
-
-		// Set up the drawer.
-		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
-				(DrawerLayout) findViewById(R.id.drawer_layout));
 	}
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
-		// update the main content by replacing fragments
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager
-				.beginTransaction()
-				.replace(R.id.container,
-						PlaceholderFragment.newInstance(position + 1)).commit();
+		onSectionAttached(position+1);
 	}
 
 	public void onSectionAttached(int number) {
@@ -85,19 +103,36 @@ public class MainActivity extends Activity implements
 			break;
 		case 1:
 			mTitle = getString(R.string.title_main);
+			try{
+				if(fragmentMain == null)
+					fragmentMain = new FragmentMain();	
+			getFragmentManager().beginTransaction().replace(R.id.container, fragmentMain).commit();
+			}
+			catch(Exception e){
+				
+			}
 			break;
 		case 2:
 			mTitle = getString(R.string.title_money);
+			fragmentMoney = new FragmentMoney();
+			try{
+			getFragmentManager().beginTransaction().replace(R.id.container, fragmentMoney).commit();
+			}
+			catch(Exception e){
+				
+			}
+			
 			break;
 		case 3:
 			mTitle = getString(R.string.title_shop);
 			break;
 		}
+		
 	}
 
 	public void restoreActionBar() {
 		ActionBar actionBar = getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(mTitle);
 	}
@@ -105,9 +140,6 @@ public class MainActivity extends Activity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (!mNavigationDrawerFragment.isDrawerOpen()) {
-			// Only show items in the action bar relevant to this screen
-			// if the drawer is not showing. Otherwise, let the drawer
-			// decide what to show in the action bar.
 			getMenuInflater().inflate(R.menu.main, menu);
 			restoreActionBar();
 			return true;
@@ -117,9 +149,6 @@ public class MainActivity extends Activity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -130,42 +159,8 @@ public class MainActivity extends Activity implements
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		private static final String ARG_SECTION_NUMBER = "section_number";
+	
 
-		/**
-		 * Returns a new instance of this fragment for the given section number.
-		 */
-		public static PlaceholderFragment newInstance(int sectionNumber) {
-			PlaceholderFragment fragment = new PlaceholderFragment();
-			Bundle args = new Bundle();
-			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);
-			return fragment;
-		}
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-
-		@Override
-		public void onAttach(Activity activity) {
-			super.onAttach(activity);
-			((MainActivity) activity).onSectionAttached(getArguments().getInt(
-					ARG_SECTION_NUMBER));
-		}
-	}
 	@Override
 	public void onBackPressed() {
 	    new AlertDialog.Builder(this)
