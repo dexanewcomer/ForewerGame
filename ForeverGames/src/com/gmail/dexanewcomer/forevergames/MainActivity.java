@@ -34,34 +34,23 @@ public class MainActivity extends Activity implements
 	private JSONObject reader;
 	LayoutInflater inflater;
 	ViewGroup container;
-	static int curentlayout;
+
 
 	private Fragment fragmentMain;
 	private Fragment fragmentMoney;
-
-	/**
-	 * Fragment managing the behaviors, interactions and presentation of the
-	 * navigation drawer.
-	 */
+	private Fragment fragmentShop;
+	
+	private int position = 1;
+	
 	private NavigationDrawerFragment mNavigationDrawerFragment;
-
-	/**
-	 * Used to store the last screen title. For use in
-	 * {@link #restoreActionBar()}.
-	 */
 	private CharSequence mTitle;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		curentlayout = R.layout.fragment_main;
-		fragmentMain = new FragmentMain();
-		if(fragmentMain == null)
-			fragmentMain = new FragmentMain();	
-	getFragmentManager()
-	.beginTransaction().replace(R.id.container, fragmentMain)
-	.commit();
+		onSectionAttached(position);
 		
 		 
 		Bundle bundle = getIntent().getExtras();
@@ -70,8 +59,6 @@ public class MainActivity extends Activity implements
 
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
-
-		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
 		
 		//////////////////////////////////////////////////////
@@ -90,18 +77,13 @@ public class MainActivity extends Activity implements
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
+		this.position = position+1;
 		onSectionAttached(position+1);
 	}
 
 	public void onSectionAttached(int number) {
 		switch (number) {
 		default:
-			try {
-				mTitle = reader.getString("fullname");
-			} catch (JSONException e) {
-				mTitle = "Forever Game";
-			}
-			break;
 		case 1:
 			mTitle = getString(R.string.title_main);
 			try{
@@ -132,6 +114,16 @@ public class MainActivity extends Activity implements
 			break;
 		case 3:
 			mTitle = getString(R.string.title_shop);
+			fragmentShop = new FragmentShop();
+			try{
+			getFragmentManager()
+			.beginTransaction()
+			.replace(R.id.container, fragmentShop).setCustomAnimations(R.animator.ltr,R.animator.rtl)
+			.commit();
+			}
+			catch(Exception e){
+				
+			}
 			break;
 		}
 		

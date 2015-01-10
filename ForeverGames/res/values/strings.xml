@@ -23,5 +23,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Обновить</string>
+    <string name="transid">ID транзакции</string>
+    <string name="qiwisumm">Сумма перевода</string>
+    <string name="comtoqiwi">Комментарий к переводу</string>
 
 </resources>

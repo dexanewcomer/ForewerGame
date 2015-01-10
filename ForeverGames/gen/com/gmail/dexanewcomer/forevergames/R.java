@@ -33,25 +33,30 @@ public final class R {
         public static final int ic_launcher=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f090012;
-        public static final int autologin=0x7f09000e;
+        public static final int EditText01=0x7f090005;
+        public static final int action_settings=0x7f090017;
+        public static final int autologin=0x7f090014;
         public static final int container=0x7f090001;
-        public static final int cpass=0x7f090007;
+        public static final int cpass=0x7f09000d;
         public static final int drawer_layout=0x7f090000;
-        public static final int female=0x7f09000d;
-        public static final int fullname=0x7f09000a;
-        public static final int login=0x7f090004;
-        public static final int mail=0x7f090008;
-        public static final int male=0x7f09000c;
+        public static final int editText1=0x7f090006;
+        public static final int editText2=0x7f090007;
+        public static final int female=0x7f090013;
+        public static final int fullname=0x7f090010;
+        public static final int login=0x7f09000a;
+        public static final int mail=0x7f09000e;
+        public static final int male=0x7f090012;
         public static final int navigation_drawer=0x7f090002;
-        public static final int pass=0x7f090005;
-        public static final int phone=0x7f090009;
-        public static final int reggroup=0x7f090006;
-        public static final int regorlogin=0x7f09000f;
+        public static final int pass=0x7f09000b;
+        public static final int phone=0x7f09000f;
+        public static final int reggroup=0x7f09000c;
+        public static final int regorlogin=0x7f090015;
         public static final int section_label=0x7f090003;
-        public static final int sex=0x7f09000b;
-        public static final int submit=0x7f090010;
-        public static final int user_name=0x7f090011;
+        public static final int sex=0x7f090011;
+        public static final int submit=0x7f090008;
+        public static final int tab1=0x7f090004;
+        public static final int tab2=0x7f090009;
+        public static final int user_name=0x7f090016;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -71,6 +76,7 @@ public final class R {
         public static final int action_settings=0x7f060002;
         public static final int app_name=0x7f060000;
         public static final int autologin=0x7f06000e;
+        public static final int comtoqiwi=0x7f060018;
         public static final int confirm=0x7f060008;
         public static final int enter=0x7f060005;
         public static final int female=0x7f06000a;
@@ -84,11 +90,13 @@ public final class R {
         public static final int navigation_drawer_open=0x7f060013;
         public static final int password=0x7f060004;
         public static final int phone=0x7f06000c;
+        public static final int qiwisumm=0x7f060017;
         public static final int registration=0x7f060006;
         public static final int title_activity_main=0x7f06000f;
         public static final int title_main=0x7f060010;
         public static final int title_money=0x7f060011;
         public static final int title_shop=0x7f060012;
+        public static final int transid=0x7f060016;
     }
     public static final class style {
         /** 
