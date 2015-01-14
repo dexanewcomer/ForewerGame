@@ -11,6 +11,26 @@
     }
     return implode("", $hash);
 }
+	function account($num=16,$db){// По умолчанию 16
+	
+	$nums = array(0,1,2,3,4,5,6,7,8,9,);	
+	for ($i = 0; $i < $num; $i++) {
+        $n = rand(0, count($nums)-1);
+        $account[$i] = $nums[$n];
+    }
+      $result = mysql_query("SELECT id FROM `Users` WHERE `account`='" . implode("", $account) . "'",$db);
+      $myrow = mysql_fetch_array($result);
+      while(!empty($myrow['id'])) {
+      	for ($i = 0; $i < $num; $i++) {
+        $n = rand(0, count($nums)-1);
+        $account[$i] = $nums[$n];
+    }
+           $result = mysql_query("SELECT id FROM `Users` WHERE `account`='" . implode("", $account) . "'",$db);
+      $myrow = mysql_fetch_array($result);
+      }
+      return implode("", $account);
+
+	}
           $answer = array();
     if(isset($_POST['act']) ){  
     if(isset($_POST['login']) && isset($_POST['pass'])) {//Если пришло в посте имя и пасс то обновляем переменные
@@ -69,17 +89,18 @@
     
    } 
    $hash = hashgen();
-    $result = mysql_query ("INSERT INTO Users (`login`,`pass`,`mail`,`phone`,`fullname`,`sex`,`hash`) VALUES(
+   $account = account(16,$db);//Вместо 16 можно указать другое число, это количество цифер в номере счета.
+    $result = mysql_query ("INSERT INTO Users (`login`,`pass`,`mail`,`phone`,`fullname`,`sex`,`account`,`hash`) VALUES(
     	 '" . mysql_real_escape_string($login) . "',
    	 '" . md5($pass) . "',
    	 '" . mysql_real_escape_string($mail) . "',
    	 '" . mysql_real_escape_string($phone) . "',
    	 '" . mysql_real_escape_string($fullname) . "',
    	 '" . mysql_real_escape_string($sex) . "',
+   	 '" . mysql_real_escape_string($account) . "',
    	 '" . $hash . "')");
     if ($result =='TRUE')
 	{
-		mail($mail,"Подтверждение регистрации","Тут такая хрень, мыло на которое пришло это сообщение было указанно при регистрации на 		каком-то сервере, для подтверждения ригистрации перейдите по ссылке <a  href=\"http://" . $_SERVER['HTTP_HOST'] . "/api.php?mail=" . 		$mail . "&hash=" . $hash . "\">http://" . $_SERVER['HTTP_HOST'] . "/api.php?mail=" . $mail . "&hash=" . $hash . "</a>","Content-type:text/plain; Charset=windows-1251\r\n");
 		 $answer['error']   = "false";
     		 $answer['content'] = "Вы успешно зарегистрированны, на Ваш E-mail отправленно письмо с сылкой для активации аккаунта.";
     		 $answer['type']    = "mail";
@@ -119,9 +140,16 @@
 		 $answer['isUser']  = "true";
 		 $answer['user'] = json_encode($myrow);
 	
+
+	
 	
 	}
-    	 
+    	 break;
+	case "pay":
+
+		 $answer = $_POST;
+	break;
+
     	 
     	 
     
