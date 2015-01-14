@@ -17,69 +17,12 @@
 
         <FrameLayout
             android:id="@android:id/tabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-			<ScrollView
-    			android:layout_width="fill_parent"
-    			android:layout_height="fill_parent">
-            <LinearLayout
-                android:id="@+id/tab1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
-                
-
-                <EditText
-                    android:id="@+id/EditText01"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/transid"
-                    android:paddingTop="@dimen/form_top" />
-
-                <EditText
-                    android:id="@+id/editText1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/qiwisumm"
-                    android:paddingTop="@dimen/form_top" >
-
-                    <requestFocus />
-                </EditText>
-
-                <EditText
-                    android:id="@+id/editText2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.38"
-                    android:ems="10"
-                    android:gravity="top|left"
-                    android:hint="@string/comtoqiwi"
-                    android:inputType="textMultiLine"
-                    android:paddingTop="@dimen/form_top" />
-
-                <Button
-            android:id="@+id/submit"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:text="Отправить" />
-
-            </LinearLayout>
-			</ScrollView>
-			<ScrollView
-    			android:layout_width="fill_parent"
-    			android:layout_height="fill_parent">
-            <LinearLayout
-                android:id="@+id/tab2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                 android:orientation="vertical" >
-            </LinearLayout>
-            </ScrollView>
+            android:layout_height="fill_parent" >
+		
 
         </FrameLayout>
-    </LinearLayout>
+        </LinearLayout>
+
 
 </TabHost>

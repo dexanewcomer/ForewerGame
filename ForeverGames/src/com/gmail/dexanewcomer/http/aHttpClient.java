@@ -23,17 +23,21 @@ import org.apache.http.util.EntityUtils;
 import android.app.Activity;
 
 import com.gmail.dexanewcomer.forevergames.LoginActivity;
+import com.gmail.dexanewcomer.forevergames.fragments.FragmentMoney;
 
 public class aHttpClient {
 	public String json;
 	Activity mActivity;
+	public static final  int 	LOGIN			 = 0;
+	public static final  int 	PAY			 	 = 1;
+	public static final  int 	WITHDRAWAL    	 = 2;
 	
 	public aHttpClient(Activity mActivity){
 		this.mActivity = mActivity;
 		
 	}
 	
-	public void post(final String url, final List<NameValuePair> nameValuePairs) {
+	public void post(final String url, final List<NameValuePair> nameValuePairs,final int callback) {
 		
 		 new Thread(new Runnable() {
 			
@@ -54,12 +58,8 @@ public class aHttpClient {
                         {
 	        				String responseBody = EntityUtils.toString(entity);
 	        				json = responseBody.toString();
-	        				mActivity.runOnUiThread(new Runnable() {
-	        				    @Override
-	        				    public void run() {
-	        				    	LoginActivity.login(json,mActivity);
-	        				    }
-	        				});
+	        				callback(mActivity,callback);
+	        				
                         }
                     }
 	        		} catch (ClientProtocolException e) {
@@ -69,7 +69,25 @@ public class aHttpClient {
 	        		}
 	        	}
 		 }).start();   
-		}    			
+		}  
+	private void callback(final Activity mActivity,final int argv){
+		mActivity.runOnUiThread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	switch (argv){
+		    	case LOGIN :
+		    		LoginActivity.login(json,mActivity);
+		    	break;
+		    	case PAY:
+		    		FragmentMoney.pay(json);
+		    	break;
+		    	}
+		    }
+		});
+	}
+	
+	
+	
 	
 
 }

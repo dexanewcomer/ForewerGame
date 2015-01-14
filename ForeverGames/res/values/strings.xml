@@ -26,5 +26,13 @@
     <string name="transid">ID транзакции</string>
     <string name="qiwisumm">Сумма перевода</string>
     <string name="comtoqiwi">Комментарий к переводу</string>
+    <string name="account">Номер счета</string>
+    <string name="empty"></string>
+    <string name="holdings">Вклады</string>
+    <string name="new_holding">Открыть вклад</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="current_cours">Текущий курс</string>
+    <string name="next">ПРОДОЛЖИТЬ</string>
 
 </resources>
