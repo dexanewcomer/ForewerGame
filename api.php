@@ -11,7 +11,7 @@
     }
     return implode("", $hash);
 }
-	function account($num=16,$db){// По умолчанию 16
+	function account($num=16,$db){// По умолчанию 16 цефр
 	
 	$nums = array(0,1,2,3,4,5,6,7,8,9,);	
 	for ($i = 0; $i < $num; $i++) {
