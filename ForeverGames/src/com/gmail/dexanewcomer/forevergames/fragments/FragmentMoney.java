@@ -15,7 +15,9 @@ import com.gmail.dexanewcomer.http.aHttpClient;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +35,11 @@ public class FragmentMoney extends Fragment {
 	private EditText summET,idET,commET;
 	private String id,summ,comment,userinfo;
 	
-	private final String server = "http://192.168.0.100/api.php";
+	private SharedPreferences mSettings;
+	private String server;
+    private static final String 		APP_PREFERENCES_SERVER = 		"server";
+
+
 
 	private View payView, withdrawalView,rootView;
 
@@ -46,6 +52,8 @@ public class FragmentMoney extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_money, null);
+		mSettings=PreferenceManager.getDefaultSharedPreferences(getActivity());
+		server = mSettings.getString(APP_PREFERENCES_SERVER, null) + "/api.php";
 		payView = inflater.inflate(R.layout.pay, null);
 		withdrawalView = inflater.inflate(R.layout.withdrawal, null);
 		TabHost tabs = (TabHost) rootView.findViewById(android.R.id.tabhost);
