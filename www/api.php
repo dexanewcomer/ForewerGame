@@ -1,5 +1,6 @@
 <?php
     header('Content-type: text/html; charset=utf-8');
+    ini_set ("default_charset", "utf-8");
     $db = mysql_connect ("localhost","root","sqlPWD(84)") or die(mysql_error());
     mysql_select_db ("dexa_db",$db)or die(mysql_error());
 	mysql_set_charset( 'utf8' );
@@ -115,10 +116,7 @@
     	 }
     	 
     	 case "login"://Вход
-    	 if(isset($_COOKIE['login']) && isset($_COOKIE['pass'])){
-  	$pass = $_COOKIE['pass'];
-  	$login = $_COOKIE['login'];
-  	}
+   
   	    if(isset($_POST['login']) && isset($_POST['pass'])) {//Если пришло в посте имя и пасс то обновляем переменные
     	$login	 = trim($_POST['login']);
     	$pass 	 = md5(trim($_POST['pass']));
@@ -127,27 +125,23 @@
 	 $myrow = mysql_fetch_array($result);
 	if (empty($myrow['id']))
 	{
-	    $answer['error']	= "true";
+			$answer['error']	= "true";
     	    $answer['content']  = "Пароль или имя пользователя введены не верно.";
     	    $answer['type']	="pass";
     	    break;
 	}else{
-	 setcookie ("login", $login,time()+3600);
-	 setcookie ("pass", $pass,time()+3600);
-		 $answer['error']   = "false";
-    		 $answer['content'] = "Вы успешно авторизованны";
-    		 $answer['type']    = "popup";
-		 $answer['isUser']  = "true";
-		 $answer['user'] = json_encode($myrow);
-	
-
-	
-	
+	 $_SESSION['login'] =  $login;
+	 $_SESSION['pass'] = $pass;
+	 $answer['error']   = "false";
+     $answer['content'] = "Вы успешно авторизованны";
+     $answer['type']    = "popup";
+	 $answer['isUser']  = "true";
+	 $answer['user'] = json_encode($myrow);
 	}
     	 break;
+    	 
 	case "pay":
-
-		 $answer = $_POST;
+		include "include/payments.php";
 	break;
 
     	 
