@@ -22,12 +22,13 @@
                     android:paddingTop="@dimen/form_top" />
 
                <EditText
-                    android:id="@+id/summToPay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/qiwisumm"
-                    android:paddingTop="@dimen/form_top" >
+                   android:id="@+id/summToPay"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:ems="10"
+                   android:hint="@string/qiwisumm"
+                   android:inputType="numberDecimal"
+                   android:paddingTop="@dimen/form_top" >
 
                 </EditText>
 

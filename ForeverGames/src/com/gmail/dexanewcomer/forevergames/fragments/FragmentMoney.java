@@ -6,8 +6,11 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.gmail.dexanewcomer.forevergames.R;
+import com.gmail.dexanewcomer.forevergames.dialogs.MessageBox;
 import com.gmail.dexanewcomer.http.aHttpClient;
 
 import android.app.Activity;
@@ -24,14 +27,20 @@ import android.widget.TabHost;
 
 public class FragmentMoney extends Fragment {
 
+	private static String title;
 	private Activity mActivity;
 	private Button payBT,giveBT;
 	private EditText summET,idET,commET;
-	private String id,summ,comment;
+	private String id,summ,comment,userinfo;
 	
-	private final String server = "http://192.168.0.102/api.php";
+	private final String server = "http://192.168.0.100/api.php";
 
 	private View payView, withdrawalView,rootView;
+
+	public FragmentMoney(String userinfo) {
+		// TODO Auto-generated constructor stub
+		this.userinfo = userinfo;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,18 +59,30 @@ public class FragmentMoney extends Fragment {
 		
 		payBT.setOnClickListener(new OnClickListener(){
 
+			private String login;
+			private String pass;
+
 			@Override
 			public void onClick(View v) {
 				
 				summ 		= summET.getText().toString();
 				comment		= commET.getText().toString();
 				id 			= idET.getText().toString();
-				
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+				try {
+					JSONObject reader = new JSONObject(userinfo);
+					login = reader.getString("login");
+					pass = reader.getString("pass");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(6);
+				nameValuePairs.add(new BasicNameValuePair("login", login));
+				nameValuePairs.add(new BasicNameValuePair("pass", pass));
 				nameValuePairs.add(new BasicNameValuePair("act", "pay"));
-				nameValuePairs.add(new BasicNameValuePair("id", id));
+				nameValuePairs.add(new BasicNameValuePair("transaction", id));
 				nameValuePairs.add(new BasicNameValuePair("summ", summ));
-				nameValuePairs.add(new BasicNameValuePair("comm", comment));				
+				nameValuePairs.add(new BasicNameValuePair("comment", comment));				
 				aHttpClient client = new aHttpClient(mActivity);
 				client.post(server, nameValuePairs,client.PAY);
 				
@@ -101,8 +122,28 @@ public class FragmentMoney extends Fragment {
 		return rootView;
 	}
 	
-	public static void pay(String json){
-		System.out.println(json);//Чтоб посмотреть работает ли этот метод вообще.
+	public static void pay(String json,Activity mActivity){
+		JSONObject reader;
+		System.out.println(json);
+		try {
+			reader = new JSONObject(json);
+			String text = reader.getString("content");
+			boolean error = reader.getBoolean("error");
+			if(error){
+				
+				title = "Ошибка!";
+				MessageBox msbox = new MessageBox(mActivity,text,title);
+				msbox.show();
+			} else{
+				title = "Операция выполнена";
+				MessageBox msbox = new MessageBox(mActivity,text,title);
+				msbox.show();
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

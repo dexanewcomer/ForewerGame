@@ -84,7 +84,7 @@ public class HomeActivity extends Activity {
 			break;
 		case 2:
 			mTitle = getString(R.string.title_money);
-			fragmentMoney = new FragmentMoney();
+			fragmentMoney = new FragmentMoney(userinfo);
 			try{
 			getFragmentManager()
 			.beginTransaction()

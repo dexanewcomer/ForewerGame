@@ -34,5 +34,6 @@
     <string name="minus">-</string>
     <string name="current_cours">Текущий курс</string>
     <string name="next">ПРОДОЛЖИТЬ</string>
+    <string name="server">Адрес сервера</string>
 
 </resources>

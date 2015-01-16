@@ -39,15 +39,17 @@ public class LoginActivity extends Activity {
 	TextView regorlogin;
 	CheckBox auto;
 	boolean registration = false;
-	static EditText loginET, passET, cpassET, mailET, phoneET, fullnameET;
+	static EditText loginET, passET, cpassET, mailET, phoneET, fullnameET, serverET;
 	Activity mActivity = this;
 	String login, pass;
 	boolean autologin;
-	private final String server = "http://192.168.0.100/api.php";
+	//private final String server = "http://192.168.0.100/api.php";
 
 	private SharedPreferences mSettings;
+	private String server;
 	private static final String 		APP_PREFERENCES_LOGIN = 		"login";
     private static final String 		APP_PREFERENCES_PASSWORD = 		"password";
+    private static final String 		APP_PREFERENCES_SERVER = 		"server";
     private static final String 		APP_PREFERENCES_AUTOLOGIN = 	"autologin";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +58,22 @@ public class LoginActivity extends Activity {
 		mSettings=PreferenceManager.getDefaultSharedPreferences(this);
 		login = mSettings.getString(APP_PREFERENCES_LOGIN, null);
 		pass = mSettings.getString(APP_PREFERENCES_PASSWORD, null);
+		server = mSettings.getString(APP_PREFERENCES_SERVER, null);
 		autologin = mSettings.getBoolean(APP_PREFERENCES_AUTOLOGIN, false);
+		serverET = (EditText) this.findViewById(R.id.server);
+		if(server != null)
+			serverET.setText(server);
+
+		
 		if(autologin){
+			server = serverET.getText().toString();
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
 			nameValuePairs.add(new BasicNameValuePair("act", "login"));
 			nameValuePairs.add(new BasicNameValuePair("login", login));
 			nameValuePairs.add(new BasicNameValuePair("pass", pass));
 			aHttpClient client = new aHttpClient(mActivity);
-			client.post(server, nameValuePairs,client.LOGIN);
+			client.post(server + "/api.php", nameValuePairs,client.LOGIN);
+		
 			
 		}
 		regorlogin = (TextView) this.findViewById(R.id.regorlogin);
@@ -92,11 +102,13 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				server = serverET.getText().toString();
 				login = loginET.getText().toString();
 				pass = passET.getText().toString();
 				Editor editor = mSettings.edit();
 		    	editor.putString(APP_PREFERENCES_LOGIN, login);
 		    	editor.putString(APP_PREFERENCES_PASSWORD, pass);
+		    	editor.putString(APP_PREFERENCES_SERVER, server);
 		    	editor.putBoolean(APP_PREFERENCES_AUTOLOGIN, autologin);
 		    	editor.apply();
 				int pairs = (registration) ? 8 : 3;
@@ -116,7 +128,7 @@ public class LoginActivity extends Activity {
 				}
 			
 				aHttpClient client = new aHttpClient(mActivity);
-				client.post(server, nameValuePairs,client.LOGIN);
+				client.post(server + "/api.php", nameValuePairs,client.LOGIN);
 				
 				
 				
