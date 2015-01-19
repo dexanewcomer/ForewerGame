@@ -58,6 +58,7 @@ public class HomeActivity extends Activity {
 				onSectionAttached(position +1);
 				
 			}});
+		
 
 		
 	}

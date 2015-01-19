@@ -13,22 +13,20 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 		$answer['isUser']  = "true";
 	    $answer['user'] = json_encode($myrow);
 		$user_id = $myrow['id'];
-		$transaction = mysql_real_escape_string(stripslashes($_POST['transaction']));
 		$summ =  mysql_real_escape_string(stripslashes($_POST['summ']));
 		$comment =  mysql_real_escape_string(stripslashes($_POST['comment']));
 	
 		
-		$result = mysql_query ("INSERT INTO `payments` (`user_id`,`date`,`transaction`,`summ`,`comment`) VALUES (
+		$result = mysql_query ("INSERT INTO `withdrawal` (`user_id`,`date`,`summ`,`comment`) VALUES (
    	 '" . $user_id . "',
    	 '" . time() . "',
-   	 '" . $transaction . "',
    	 '" . $summ . "',
    	 '" . $comment . "')") or die(mysql_error());
     if ($result == 'TRUE')
 	{
 		
 	 $answer['error']   = "false";
-     $answer['content'] = "Ваш платёж принят и будет обработан в кратчайшии сроки.";
+     $answer['content'] = "Ваш запрос принят и будет обработан в кратчайшии сроки.";
      $answer['post'] = $_POST;
 
 			}
@@ -37,3 +35,4 @@ if(isset($_POST['login']) && isset($_POST['pass'])) {
 	
 	}
 	?>
+

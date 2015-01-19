@@ -12,21 +12,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
                 
-
-               
-
                <EditText
-                    android:id="@+id/summToPay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/qiwisumm"
-                    android:paddingTop="@dimen/form_top" >
+                   android:id="@+id/summToWithdrawal"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:ems="10"
+                   android:hint="@string/summ_withdrawal"
+                   android:paddingTop="@dimen/form_top" >
 
                 </EditText>
 
                 <EditText
-                    android:id="@+id/commentToPay"
+                    android:id="@+id/commentToWithdrawal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.38"
@@ -37,7 +34,7 @@
                     android:paddingTop="@dimen/form_top" />
 
                 <Button
-            android:id="@+id/payBT"
+            android:id="@+id/withdrawalBT"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"

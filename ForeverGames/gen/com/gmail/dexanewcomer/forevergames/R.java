@@ -35,26 +35,29 @@ public final class R {
         public static final int bg=0x7f020001;
         public static final int drawer_shadow=0x7f020002;
         public static final int frame=0x7f020003;
-        public static final int help=0x7f020004;
-        public static final int history=0x7f020005;
-        public static final int home=0x7f020006;
-        public static final int ic_drawer=0x7f020007;
-        public static final int ic_launcher=0x7f020008;
-        public static final int money=0x7f020009;
-        public static final int papir=0x7f02000a;
+        public static final int gold_bullion=0x7f020004;
+        public static final int help=0x7f020005;
+        public static final int history=0x7f020006;
+        public static final int home=0x7f020007;
+        public static final int ic_drawer=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int money=0x7f02000a;
+        public static final int papir=0x7f02000b;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f09001d;
         public static final int account=0x7f09000d;
-        public static final int action_settings=0x7f090025;
-        public static final int addHolding=0x7f09000e;
+        public static final int action_settings=0x7f090028;
+        public static final int addHolding=0x7f090008;
         public static final int autologin=0x7f090019;
         public static final int commentToPay=0x7f090023;
+        public static final int commentToWithdrawal=0x7f090026;
         public static final int container=0x7f090000;
         public static final int cpass=0x7f090013;
         public static final int drawer_layout=0x7f090003;
         public static final int female=0x7f090018;
         public static final int fullname=0x7f09000b;
+        public static final int gold=0x7f09000e;
         public static final int gridLayout1=0x7f090001;
         public static final int gridMenu=0x7f090002;
         public static final int idToPay=0x7f090021;
@@ -68,6 +71,7 @@ public final class R {
         public static final int pass=0x7f090011;
         public static final int payBT=0x7f090024;
         public static final int phone=0x7f090015;
+        public static final int price=0x7f090005;
         public static final int reggroup=0x7f090012;
         public static final int regorlogin=0x7f09001a;
         public static final int section_label=0x7f09000c;
@@ -76,12 +80,12 @@ public final class R {
         public static final int submit=0x7f09001b;
         public static final int summ=0x7f090007;
         public static final int summToPay=0x7f090022;
+        public static final int summToWithdrawal=0x7f090025;
         public static final int tab1=0x7f090020;
         public static final int textView1=0x7f090006;
-        public static final int textView2=0x7f090008;
         public static final int textView3=0x7f090009;
-        public static final int textView4=0x7f090005;
         public static final int user_name=0x7f09001c;
+        public static final int withdrawalBT=0x7f090027;
     }
     public static final class layout {
         public static final int activiti_container=0x7f030000;
@@ -113,6 +117,7 @@ public final class R {
         public static final int enter=0x7f060005;
         public static final int female=0x7f06000a;
         public static final int fullname=0x7f06000d;
+        public static final int gold=0x7f060023;
         public static final int hello_world=0x7f060001;
         public static final int hide=0x7f06000b;
         public static final int holdings=0x7f06001b;
@@ -130,6 +135,7 @@ public final class R {
         public static final int qiwisumm=0x7f060017;
         public static final int registration=0x7f060006;
         public static final int server=0x7f060021;
+        public static final int summ_withdrawal=0x7f060022;
         public static final int title_activity_main=0x7f06000f;
         public static final int title_main=0x7f060010;
         public static final int title_money=0x7f060011;

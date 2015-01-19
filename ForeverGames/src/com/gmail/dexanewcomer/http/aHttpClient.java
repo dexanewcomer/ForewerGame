@@ -28,6 +28,8 @@ import org.apache.http.util.EntityUtils;
 import android.app.Activity;
 
 import com.gmail.dexanewcomer.forevergames.LoginActivity;
+import com.gmail.dexanewcomer.forevergames.dialogs.addHolding;
+import com.gmail.dexanewcomer.forevergames.fragments.FragmentMain;
 import com.gmail.dexanewcomer.forevergames.fragments.FragmentMoney;
 
 public class aHttpClient {
@@ -36,6 +38,8 @@ public class aHttpClient {
 	public static final  int 	LOGIN			 = 0;
 	public static final  int 	PAY			 	 = 1;
 	public static final  int 	WITHDRAWAL    	 = 2;
+	public static final  int 	PRICE			 = 3;
+	public static final  int 	PRICEALL		 = 4;
 	
 	public aHttpClient(Activity mActivity){
 		this.mActivity = mActivity;
@@ -85,12 +89,22 @@ public class aHttpClient {
 		mActivity.runOnUiThread(new Runnable() {
 		    @Override
 		    public void run() {
+		    	System.out.println(json);
 		    	switch (argv){
-		    	case LOGIN :
+		    		case LOGIN :
 		    		LoginActivity.login(json,mActivity);
 		    	break;
-		    	case PAY:
+		    		case PAY:
 		    		FragmentMoney.pay(json,mActivity);
+		    	break;
+		    		case WITHDRAWAL:		    		
+		    		FragmentMoney.withdrawal(json, mActivity);
+		    	break;
+		    		case PRICE:
+		    			addHolding.setPrice(json, mActivity);
+		    	break;
+		    		case PRICEALL:
+		    			FragmentMain.setPrice(json, mActivity);
 		    	break;
 		    	}
 		    }

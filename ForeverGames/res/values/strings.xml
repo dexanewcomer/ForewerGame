@@ -35,5 +35,7 @@
     <string name="current_cours">Текущий курс</string>
     <string name="next">ПРОДОЛЖИТЬ</string>
     <string name="server">Адрес сервера</string>
+    <string name="summ_withdrawal">Сумма снятия</string>
+    <string name="gold">Золото</string>
 
 </resources>

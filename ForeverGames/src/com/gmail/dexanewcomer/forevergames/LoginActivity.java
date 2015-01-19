@@ -41,12 +41,13 @@ public class LoginActivity extends Activity {
 	boolean registration = false;
 	static EditText loginET, passET, cpassET, mailET, phoneET, fullnameET, serverET;
 	Activity mActivity = this;
-	String login, pass;
+	static String login;
+	static String pass;
 	boolean autologin;
 	//private final String server = "http://192.168.0.100/api.php";
 
 	private SharedPreferences mSettings;
-	private String server;
+	private static String server;
 	private static final String 		APP_PREFERENCES_LOGIN = 		"login";
     private static final String 		APP_PREFERENCES_PASSWORD = 		"password";
     private static final String 		APP_PREFERENCES_SERVER = 		"server";
@@ -177,7 +178,7 @@ public class LoginActivity extends Activity {
 			}
 			else{
 				if(reader.getBoolean("isUser")){
-
+	Global.setSERVER(server);
     Bundle bundle = new Bundle();
     bundle.putString("user", reader.getString("user"));
 	Intent enterIntent = new Intent(mActivity, HomeActivity.class);

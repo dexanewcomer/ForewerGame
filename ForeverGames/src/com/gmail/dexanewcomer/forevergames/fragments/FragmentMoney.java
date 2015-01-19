@@ -31,9 +31,11 @@ public class FragmentMoney extends Fragment {
 
 	private static String title;
 	private Activity mActivity;
-	private Button payBT,giveBT;
-	private EditText summET,idET,commET;
+	private Button payBT,withdrawalBT;
+	private EditText summET,idET,commET, summET2, commET2;
 	private String id,summ,comment,userinfo;
+	private String login;
+	private String pass;
 	
 	private SharedPreferences mSettings;
 	private String server;
@@ -43,9 +45,18 @@ public class FragmentMoney extends Fragment {
 
 	private View payView, withdrawalView,rootView;
 
+
 	public FragmentMoney(String userinfo) {
 		// TODO Auto-generated constructor stub
 		this.userinfo = userinfo;
+		try {
+			JSONObject reader = new JSONObject(userinfo);
+			this.login = reader.getString("login");
+			this.pass = reader.getString("pass");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -67,8 +78,7 @@ public class FragmentMoney extends Fragment {
 		
 		payBT.setOnClickListener(new OnClickListener(){
 
-			private String login;
-			private String pass;
+
 
 			@Override
 			public void onClick(View v) {
@@ -76,14 +86,7 @@ public class FragmentMoney extends Fragment {
 				summ 		= summET.getText().toString();
 				comment		= commET.getText().toString();
 				id 			= idET.getText().toString();
-				try {
-					JSONObject reader = new JSONObject(userinfo);
-					login = reader.getString("login");
-					pass = reader.getString("pass");
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(6);
 				nameValuePairs.add(new BasicNameValuePair("login", login));
 				nameValuePairs.add(new BasicNameValuePair("pass", pass));
@@ -95,6 +98,29 @@ public class FragmentMoney extends Fragment {
 				client.post(server, nameValuePairs,client.PAY);
 				
 			}});
+		
+		withdrawalBT = (Button) withdrawalView.findViewById(R.id.withdrawalBT);
+		summET2 = (EditText) withdrawalView.findViewById(R.id.summToWithdrawal);
+		commET2= (EditText)withdrawalView.findViewById(R.id.commentToWithdrawal);
+		withdrawalBT.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				summ 		= summET2.getText().toString();
+				comment		= commET2.getText().toString();
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+				nameValuePairs.add(new BasicNameValuePair("login", login));
+				nameValuePairs.add(new BasicNameValuePair("pass", pass));
+				nameValuePairs.add(new BasicNameValuePair("act", "withdrawal"));
+				nameValuePairs.add(new BasicNameValuePair("summ", summ));
+				nameValuePairs.add(new BasicNameValuePair("comment", comment));	
+
+				
+				aHttpClient client = new aHttpClient(mActivity);
+				client.post(server, nameValuePairs,client.WITHDRAWAL);
+				
+			}});
+		
 
 		tabs.setup();		
 		TabHost.TabSpec tab1 = tabs.newTabSpec("tab1");
@@ -133,6 +159,29 @@ public class FragmentMoney extends Fragment {
 	public static void pay(String json,Activity mActivity){
 		JSONObject reader;
 		System.out.println(json);
+		try {
+			reader = new JSONObject(json);
+			String text = reader.getString("content");
+			boolean error = reader.getBoolean("error");
+			if(error){
+				
+				title = "Ошибка!";
+				MessageBox msbox = new MessageBox(mActivity,text,title);
+				msbox.show();
+			} else{
+				title = "Операция выполнена";
+				MessageBox msbox = new MessageBox(mActivity,text,title);
+				msbox.show();
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	public static void withdrawal(String json,Activity mActivity){
+		JSONObject reader;
+		System.out.println("withdrawal: " + json);
 		try {
 			reader = new JSONObject(json);
 			String text = reader.getString("content");
