@@ -20,14 +20,7 @@ public class FragmentShop extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {		
 		rootView = inflater.inflate(R.layout.fragment_shop, container,false);
 		EditText test = (EditText) rootView.findViewById(R.id.editText1);
-		test.setOnFocusChangeListener(new OnFocusChangeListener(){
-
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus)
-					HomeActivity.hide();
-				
-			}});
+	
 		return rootView;
 	}
 
