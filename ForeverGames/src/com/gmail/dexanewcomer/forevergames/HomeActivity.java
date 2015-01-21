@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 public class HomeActivity extends Activity {
@@ -30,6 +31,7 @@ public class HomeActivity extends Activity {
 	private Fragment fragmentShop;
 	private int position = 1;
 	private CharSequence mTitle;
+	private static SlidingDrawer slide;
 
 
 	/** Called when the activity is first created. */
@@ -39,6 +41,8 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.activiti_container);
 		Bundle bundle = getIntent().getExtras();
 		inflater = this.getLayoutInflater();
+		slide = (SlidingDrawer) this.findViewById(R.id.drawer);
+		
 
 		GridView gridview = (GridView) findViewById(R.id.gridMenu);
 		gridview.setAdapter(new menuAdapter(this));
@@ -64,7 +68,7 @@ public class HomeActivity extends Activity {
 	}
 	
 	
-	
+
 	
 	public void onSectionAttached(int number) {
 		switch (number) {

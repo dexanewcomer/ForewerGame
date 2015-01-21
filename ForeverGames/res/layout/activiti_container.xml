@@ -7,23 +7,41 @@
         android:id="@+id/container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/gridLayout1"
         android:layout_alignParentRight="true" >
 
     </FrameLayout>
+    
+   
+            <SlidingDrawer
+            android:id="@+id/drawer"
+            android:layout_alignParentBottom="true"
+       		android:layout_alignParentLeft="true"
+            android:layout_width="fill_parent"
+            android:layout_height="64dip"
+            android:content="@+id/gridMenu"
+            android:handle="@+id/handle"
+            android:orientation="vertical" >
 
-    <GridView
+            <ImageView
+                android:id="@+id/handle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#404040"
+                android:src="@drawable/ic_drawer" />
+      <GridView
         android:id="@+id/gridMenu"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/icon_menu"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_height="@dimen/icon_menu"       
         android:columnWidth="@dimen/icon_menu"
         android:background="#c3c3c3"
         android:gravity="center"
   	    android:horizontalSpacing="10dp"
         android:numColumns="4"
         android:stretchMode="columnWidth" >
-    </GridView>
+   	 </GridView>
+
+        </SlidingDrawer>
+
+    
 
 </RelativeLayout>

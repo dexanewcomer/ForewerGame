@@ -18,6 +18,7 @@ import com.gmail.dexanewcomer.http.aHttpClient;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -92,6 +93,8 @@ public class FragmentMain extends Fragment {
 				
 			}});
 		//Получаем цены лотов, ну пока одного лота.
+		startTimer();
+        
 		
 		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
 		nameValuePairs.add(new BasicNameValuePair("login", Global.LOGIN));
@@ -108,7 +111,7 @@ public class FragmentMain extends Fragment {
 			for (int i = 0; i < prices.length(); i++) {
 	            JSONObject lot = prices.getJSONObject(i); 
 	         if(lot.get("name").equals("gold")) {
-	        	 gold.append("\t\t\t" + lot.getString("price") + "руб.");
+	        	 gold.setText(mActivity.getString(R.string.gold) + "\t\t\t" + lot.getString("price") + "руб.");
 	         }
 			}
 			
@@ -117,6 +120,25 @@ public class FragmentMain extends Fragment {
 			e.printStackTrace();
 		}
 		
+	}
+	private void getPrice(){
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+		nameValuePairs.add(new BasicNameValuePair("login", Global.LOGIN));
+		nameValuePairs.add(new BasicNameValuePair("pass", Global.PASS));
+		nameValuePairs.add(new BasicNameValuePair("act", "priceall"));
+		aHttpClient client = new aHttpClient(this.getActivity());
+		client.post(Global.SERVER + "/api.php", nameValuePairs,client.PRICEALL);
+	}
+	private void startTimer(){
+		new CountDownTimer(2000000000, 10000) { //Я установил интервал в 10 секунд.Чтоб проверить пока надо в ручную изменить цену в базе данных.
+            public void onTick(long millisUntilFinished) {
+            	getPrice();
+            	System.out.println("tick");
+            }
+            public void onFinish() {
+            	
+            }
+        }.start();
 	}
 	
 }

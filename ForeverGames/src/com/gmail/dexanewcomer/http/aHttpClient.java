@@ -70,7 +70,10 @@ public class aHttpClient {
                         {
 	        				String responseBody = EntityUtils.toString(entity);
 	        				json = responseBody.toString();
+	        				try{
 	        				callback(mActivity,callback);
+	        				}
+	        				catch(Exception e){}
 	        				
                         }
                     }
@@ -89,8 +92,9 @@ public class aHttpClient {
 		mActivity.runOnUiThread(new Runnable() {
 		    @Override
 		    public void run() {
-		    	System.out.println(json);
 		    	switch (argv){
+		    	default:
+		    		break;
 		    		case LOGIN :
 		    		LoginActivity.login(json,mActivity);
 		    	break;
