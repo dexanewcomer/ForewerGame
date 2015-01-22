@@ -17,27 +17,89 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class addHolding extends Dialog implements android.view.View.OnClickListener {
+public class addHolding extends Dialog implements android.view.View.OnClickListener  {
 	private static JSONObject reader;
-	private String pass, login, lot; 
+	private String lot;
+	static double balance, price, max = 1;
+	EditText summ;
+	private static SeekBar seekbar;
 	private Activity mActivity;
-	private static TextView price;
+	private static TextView priceTV, total;
 	public addHolding(Activity context, String lot) {
 		super(context);
 		this.mActivity = context;
 		this.lot = lot;
 	}
+
 	protected void onStart() {
         super.onStart();
         
 
        
         setContentView(R.layout.add_holding);
-        price  =(TextView) this.findViewById(R.id.price);
+         seekbar = (SeekBar)findViewById(R.id.seekBar);
+        summ =(EditText) this.findViewById(R.id.summ);
+        summ.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				try{
+				seekbar.setProgress(Integer.parseInt(summ.getText().toString()));
+				}
+				catch(NumberFormatException nan){}
+				
+			}});
+        total = (TextView) this.findViewById(R.id.total);
+       
+        seekbar.setMax(25);
+        seekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+					boolean fromUser) {
+				// TODO Auto-generated method stub
+				summ.setText(String.valueOf(seekBar.getProgress()));
+				total.setText((price*seekBar.getProgress()) + "$");
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+				
+			}});
+        priceTV  =(TextView) this.findViewById(R.id.price);
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
 		nameValuePairs.add(new BasicNameValuePair("login", Global.LOGIN));
 		nameValuePairs.add(new BasicNameValuePair("pass", Global.PASS));
@@ -65,7 +127,14 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 		try {
 			reader = new JSONObject(json);
 			String curPrice = reader.getString("price");
-			price.setText(mActivity2.getString(R.string.current_cours) + " "  + curPrice + "руб.");
+			priceTV.setText(mActivity2.getString(R.string.current_cours) + " "  + curPrice + "руб.");
+			JSONObject user = new JSONObject(reader.getString("user"));
+			balance = user.getInt("balance");
+			price = Double.parseDouble(curPrice);
+			max =  (balance / price);
+			seekbar.setMax((int) Math.round(max));
+			
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

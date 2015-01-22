@@ -19,16 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/form_top" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:text="@string/plus"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="@dimen/icon_menu" />
-
         <EditText
             android:id="@+id/summ"
             android:layout_width="wrap_content"
@@ -37,32 +27,27 @@
             android:layout_marginLeft="@dimen/margin"
             android:layout_marginRight="@dimen/margin"
             android:layout_weight="1"
-            android:ems="10"
             android:hint="Сумма вклада"
             android:inputType="number" >
 
             <requestFocus />
         </EditText>
 
-        <TextView
-            android:id="@+id/addHolding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:text="@string/minus"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="@dimen/icon_menu" />
-
     </LinearLayout>
 
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="summ" />
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="00.0$"
+        android:text="@string/empty"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
