@@ -30,7 +30,8 @@ import android.widget.TextView;
 public class addHolding extends Dialog implements android.view.View.OnClickListener  {
 	private static JSONObject reader;
 	private String lot;
-	static double balance, price, max = 1;
+	static double balance, price = 1;
+	static int max;
 	EditText summ;
 	private static SeekBar seekbar;
 	private Activity mActivity;
@@ -70,6 +71,8 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 				// TODO Auto-generated method stub
 				try{
 				seekbar.setProgress(Integer.parseInt(summ.getText().toString()));
+				if(Integer.parseInt(summ.getText().toString()) > max)
+					summ.setText(String.valueOf(max));
 				}
 				catch(NumberFormatException nan){}
 				
@@ -131,7 +134,7 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 			JSONObject user = new JSONObject(reader.getString("user"));
 			balance = user.getInt("balance");
 			price = Double.parseDouble(curPrice);
-			max =  (balance / price);
+			max =  (int) Math.round(balance / price);
 			seekbar.setMax((int) Math.round(max));
 			
 			
