@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.gmail.dexanewcomer.forevergames.R;
 import com.gmail.dexanewcomer.forevergames.dialogs.MessageBox;
 import com.gmail.dexanewcomer.http.aHttpClient;
+import com.gmail.dexanewcomer.http.aHttpClient.OnJsonListener;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -36,7 +37,7 @@ public class FragmentMoney extends Fragment {
 	private String id,summ,comment,userinfo;
 	private String login;
 	private String pass;
-	
+	private aHttpClient client;
 	private SharedPreferences mSettings;
 	private String server;
     private static final String 		APP_PREFERENCES_SERVER = 		"server";
@@ -75,7 +76,32 @@ public class FragmentMoney extends Fragment {
 		summET = (EditText) payView.findViewById(R.id.summToPay);
 		idET = (EditText) payView.findViewById(R.id.idToPay);
 		commET = (EditText)payView.findViewById(R.id.commentToPay);
-		
+		client = new aHttpClient(mActivity);
+		client.setOnJsonListener(new OnJsonListener(){
+
+			@Override
+			public void onJson() {
+				JSONObject reader;
+				try {
+					
+					reader = new JSONObject(client.json);
+					String text = reader.getString("content");					
+					boolean error = reader.getBoolean("error");
+					if(error){						
+						title = "Ошибка!";
+						MessageBox msbox = new MessageBox(mActivity,text,title);
+						msbox.show();
+					} else{
+						title = "Операция выполнена";
+						MessageBox msbox = new MessageBox(mActivity,text,title);
+						msbox.show();
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}});
 		payBT.setOnClickListener(new OnClickListener(){
 
 
@@ -93,9 +119,8 @@ public class FragmentMoney extends Fragment {
 				nameValuePairs.add(new BasicNameValuePair("act", "pay"));
 				nameValuePairs.add(new BasicNameValuePair("transaction", id));
 				nameValuePairs.add(new BasicNameValuePair("summ", summ));
-				nameValuePairs.add(new BasicNameValuePair("comment", comment));				
-				aHttpClient client = new aHttpClient(mActivity);
-				client.post(server, nameValuePairs,client.PAY);
+				nameValuePairs.add(new BasicNameValuePair("comment", comment));								
+				client.post(server, nameValuePairs);
 				
 			}});
 		
@@ -117,7 +142,7 @@ public class FragmentMoney extends Fragment {
 
 				
 				aHttpClient client = new aHttpClient(mActivity);
-				client.post(server, nameValuePairs,client.WITHDRAWAL);
+				client.post(server, nameValuePairs);
 				
 			}});
 		
@@ -156,51 +181,6 @@ public class FragmentMoney extends Fragment {
 		return rootView;
 	}
 	
-	public static void pay(String json,Activity mActivity){
-		JSONObject reader;
-		System.out.println(json);
-		try {
-			reader = new JSONObject(json);
-			String text = reader.getString("content");
-			boolean error = reader.getBoolean("error");
-			if(error){
-				
-				title = "Ошибка!";
-				MessageBox msbox = new MessageBox(mActivity,text,title);
-				msbox.show();
-			} else{
-				title = "Операция выполнена";
-				MessageBox msbox = new MessageBox(mActivity,text,title);
-				msbox.show();
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	public static void withdrawal(String json,Activity mActivity){
-		JSONObject reader;
-		System.out.println("withdrawal: " + json);
-		try {
-			reader = new JSONObject(json);
-			String text = reader.getString("content");
-			boolean error = reader.getBoolean("error");
-			if(error){
-				
-				title = "Ошибка!";
-				MessageBox msbox = new MessageBox(mActivity,text,title);
-				msbox.show();
-			} else{
-				title = "Операция выполнена";
-				MessageBox msbox = new MessageBox(mActivity,text,title);
-				msbox.show();
-			}
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+
 	
 }

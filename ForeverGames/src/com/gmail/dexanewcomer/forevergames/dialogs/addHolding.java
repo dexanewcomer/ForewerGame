@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.gmail.dexanewcomer.forevergames.Global;
 import com.gmail.dexanewcomer.forevergames.R;
 import com.gmail.dexanewcomer.http.aHttpClient;
+import com.gmail.dexanewcomer.http.aHttpClient.OnJsonListener;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -35,6 +36,7 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 	EditText summ;
 	private static SeekBar seekbar;
 	private Activity mActivity;
+	private aHttpClient client;
 	private static TextView priceTV, total;
 	public addHolding(Activity context, String lot) {
 		super(context);
@@ -44,28 +46,20 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 
 	protected void onStart() {
         super.onStart();
-        
-
-       
         setContentView(R.layout.add_holding);
+        client = new aHttpClient(mActivity);
          seekbar = (SeekBar)findViewById(R.id.seekBar);
         summ =(EditText) this.findViewById(R.id.summ);
         summ.addTextChangedListener(new TextWatcher() {
-
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// TODO Auto-generated method stub
-				
 			}
-
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
@@ -103,15 +97,33 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 				
 			}});
         priceTV  =(TextView) this.findViewById(R.id.price);
+        client.setOnJsonListener(new OnJsonListener(){
+			@Override
+			public void onJson() {
+				try {
+					System.out.println("price :" + client.json);
+					reader = new JSONObject(client.json);
+					String curPrice = reader.getString("price");
+					System.out.println("price :" + curPrice);
+					priceTV.setText(mActivity.getString(R.string.current_cours) + " "  + curPrice + "руб.");
+					System.out.println(mActivity.getString(R.string.current_cours)  + " "  + curPrice + "руб.");
+					JSONObject user = new JSONObject(reader.getString("user"));
+					balance = user.getInt("balance");
+					price = Double.parseDouble(curPrice);
+					max =  (int) Math.round(balance / price);
+					seekbar.setMax((int) Math.round(max));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}});
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
 		nameValuePairs.add(new BasicNameValuePair("login", Global.LOGIN));
 		nameValuePairs.add(new BasicNameValuePair("pass", Global.PASS));
 		nameValuePairs.add(new BasicNameValuePair("act", "price"));
 		nameValuePairs.add(new BasicNameValuePair("lot", lot));
-		aHttpClient client = new aHttpClient(mActivity);
-		client.post(Global.SERVER + "/api.php", nameValuePairs,client.PRICE);
-
-    
+		client.post(Global.SERVER + "/api.php", nameValuePairs);
         getWindow().setFlags(4, 4);
         getWindow().setBackgroundDrawableResource(R.drawable.frame);
        // getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -123,26 +135,6 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 	@Override
 	public void onClick(View v) {
 		this.dismiss();
-		
-	}
-	public static void setPrice(String json, Activity mActivity2) {
-		// TODO Auto-generated method stub
-		try {
-			reader = new JSONObject(json);
-			String curPrice = reader.getString("price");
-			priceTV.setText(mActivity2.getString(R.string.current_cours) + " "  + curPrice + "руб.");
-			JSONObject user = new JSONObject(reader.getString("user"));
-			balance = user.getInt("balance");
-			price = Double.parseDouble(curPrice);
-			max =  (int) Math.round(balance / price);
-			seekbar.setMax((int) Math.round(max));
-			
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		
 	}
 

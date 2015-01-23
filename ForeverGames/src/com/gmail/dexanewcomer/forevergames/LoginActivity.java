@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.gmail.dexanewcomer.http.aHttpClient;
+import com.gmail.dexanewcomer.http.aHttpClient.OnJsonListener;
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,6 +45,7 @@ public class LoginActivity extends Activity {
 	static String login;
 	static String pass;
 	boolean autologin;
+	private aHttpClient client;
 	//private final String server = "http://192.168.0.100/api.php";
 
 	private SharedPreferences mSettings;
@@ -65,6 +67,14 @@ public class LoginActivity extends Activity {
 		if(server != null)
 			serverET.setText(server);
 
+		client = new aHttpClient(mActivity);
+		client.setOnJsonListener(new OnJsonListener(){
+
+			@Override
+			public void onJson() {
+				login(client.json);
+				
+			}});
 		
 		if(autologin){
 			server = serverET.getText().toString();
@@ -72,8 +82,7 @@ public class LoginActivity extends Activity {
 			nameValuePairs.add(new BasicNameValuePair("act", "login"));
 			nameValuePairs.add(new BasicNameValuePair("login", login));
 			nameValuePairs.add(new BasicNameValuePair("pass", pass));
-			aHttpClient client = new aHttpClient(mActivity);
-			client.post(server + "/api.php", nameValuePairs,client.LOGIN);
+			client.post(server + "/api.php", nameValuePairs);
 		
 			
 		}
@@ -127,9 +136,7 @@ public class LoginActivity extends Activity {
 				nameValuePairs.add(new BasicNameValuePair("phone", phoneET.getText().toString()));
 				
 				}
-			
-				aHttpClient client = new aHttpClient(mActivity);
-				client.post(server + "/api.php", nameValuePairs,client.LOGIN);
+				client.post(server + "/api.php", nameValuePairs);
 				
 				
 				
@@ -164,8 +171,7 @@ public class LoginActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public static void login(String json, Activity mActivity){
-		System.out.println("answer: " + json);
+	private void login(String json){
 		try {
 			JSONObject reader = new JSONObject(json);
 			boolean error = reader.getBoolean("error");

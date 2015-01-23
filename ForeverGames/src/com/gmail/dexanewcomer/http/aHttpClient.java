@@ -26,6 +26,7 @@ import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
+import android.net.wifi.p2p.WifiP2pManager.ActionListener;
 
 import com.gmail.dexanewcomer.forevergames.LoginActivity;
 import com.gmail.dexanewcomer.forevergames.dialogs.addHolding;
@@ -33,8 +34,11 @@ import com.gmail.dexanewcomer.forevergames.fragments.FragmentMain;
 import com.gmail.dexanewcomer.forevergames.fragments.FragmentMoney;
 
 public class aHttpClient {
+	OnJsonListener onJson;
 	public String json;
 	Activity mActivity;
+	private OnJsonListener mListener;
+	
 	public static final  int 	LOGIN			 = 0;
 	public static final  int 	PAY			 	 = 1;
 	public static final  int 	WITHDRAWAL    	 = 2;
@@ -46,7 +50,7 @@ public class aHttpClient {
 		
 	}
 	
-	public void post(final String url, final List<NameValuePair> nameValuePairs,final int callback) {
+	public void post(final String url, final List<NameValuePair> nameValuePairs) {
 		
 		 new Thread(new Runnable() {
 			
@@ -59,6 +63,7 @@ public class aHttpClient {
 
 	        		HttpClient httpclient = new DefaultHttpClient(httpParams);
 	        		HttpPost httppost = new HttpPost(url);
+	        		
 
 	        		try {
 	        		httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
@@ -66,12 +71,14 @@ public class aHttpClient {
 	        		if(response.getStatusLine().getStatusCode() == 200)
                     {
 	        			HttpEntity entity = response.getEntity();
+	        			
 	        			if (entity != null) 
                         {
 	        				String responseBody = EntityUtils.toString(entity);
 	        				json = responseBody.toString();
 	        				try{
-	        				callback(mActivity,callback);
+	        					if (mListener != null)
+	        						 mListener.onJson();
 	        				}
 	        				catch(Exception e){}
 	        				
@@ -88,33 +95,19 @@ public class aHttpClient {
 	        	}
 		 }).start();   
 		}  
-	private void callback(final Activity mActivity,final int argv){
-		mActivity.runOnUiThread(new Runnable() {
-		    @Override
-		    public void run() {
-		    	switch (argv){
-		    	default:
-		    		break;
-		    		case LOGIN :
-		    		LoginActivity.login(json,mActivity);
-		    	break;
-		    		case PAY:
-		    		FragmentMoney.pay(json,mActivity);
-		    	break;
-		    		case WITHDRAWAL:		    		
-		    		FragmentMoney.withdrawal(json, mActivity);
-		    	break;
-		    		case PRICE:
-		    			addHolding.setPrice(json, mActivity);
-		    	break;
-		    		case PRICEALL:
-		    			FragmentMain.setPrice(json, mActivity);
-		    	break;
-		    	}
-		    }
-		});
-	}
+
 	
+
+
+
+	
+	public interface OnJsonListener {
+		public void onJson();
+
+	}
+	public void setOnJsonListener(OnJsonListener eventListener) {
+	 mListener=eventListener;
+	}
 	
 	
 	
