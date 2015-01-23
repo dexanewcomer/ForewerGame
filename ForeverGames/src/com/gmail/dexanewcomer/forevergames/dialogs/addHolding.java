@@ -105,13 +105,14 @@ public class addHolding extends Dialog implements android.view.View.OnClickListe
 					reader = new JSONObject(client.json);
 					String curPrice = reader.getString("price");
 					System.out.println("price :" + curPrice);
-					priceTV.setText(mActivity.getString(R.string.current_cours) + " "  + curPrice + "руб.");
-					System.out.println(mActivity.getString(R.string.current_cours)  + " "  + curPrice + "руб.");
+					
+					
 					JSONObject user = new JSONObject(reader.getString("user"));
 					balance = user.getInt("balance");
 					price = Double.parseDouble(curPrice);
 					max =  (int) Math.round(balance / price);
 					seekbar.setMax((int) Math.round(max));
+					priceTV.setText(mActivity.getString(R.string.current_cours) + " "  + curPrice + "руб.");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
